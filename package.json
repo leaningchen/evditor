@@ -1,0 +1,60 @@
+{
+  "name": "evditor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "evditor — Markdown editor (Electron + Vue3 + Vditor)",
+  "author": "leaningchen",
+  "type": "module",
+  "main": "dist-electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "build:vite": "vite build",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vditor": "^3.10.7",
+    "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "electron": "22.3.27",
+    "electron-builder": "^24.13.3",
+    "typescript": "~5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-electron": "^0.28.8",
+    "vite-plugin-electron-renderer": "^0.14.5",
+    "vue-tsc": "^2.0.19"
+  },
+  "build": {
+    "appId": "com.evditor.app",
+    "productName": "evditor",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+      "sign": null,
+      "signDlls": false,
+      "signAndEditExecutable": false
+    },
+    "electronVersion": "22.3.27",
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    }
+  }
+}

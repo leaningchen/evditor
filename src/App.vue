@@ -23,6 +23,8 @@ const DEFAULT_MD = `# 欢迎使用
 使用顶部工具栏切换 **编辑模式**、打开 **大纲** 面板或 **全屏**。**Ctrl+S** 保存，**Ctrl+O** 打开文件。
 `
 
+const EMPTY_DOC = `# 未命名\n\n`
+
 const editorRef = ref<InstanceType<typeof TyporaEditor> | null>(null)
 const currentPath = ref<string | null>(null)
 const docKey = ref(0)
@@ -114,6 +116,13 @@ function onOpenFileFromWorkspace(r: { path: string; content: string }) {
   docKey.value += 1
 }
 
+function closeFile() {
+  currentPath.value = null
+  initialMarkdown.value = EMPTY_DOC
+  titleText.value = '未命名'
+  docKey.value += 1
+}
+
 function newDoc() {
   currentPath.value = null
   initialMarkdown.value = DEFAULT_MD
@@ -139,6 +148,9 @@ function newDoc() {
             <option value="sv">分屏</option>
           </select>
         </label>
+        <button type="button" class="btn" :disabled="!hasFileBridge()" @click="closeFile">
+          关闭
+        </button>
         <button type="button" class="btn" :disabled="!hasFileBridge()" @click="newDoc">
           新建
         </button>
